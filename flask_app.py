@@ -22,7 +22,8 @@ class Adder(FlaskForm):
     submitted = SubmitField('Submit')
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '66578655678HGUUHVGFYTG%^$^&*^&'
+app.config['SECRET_KEY'] = 'u3ygfr7evyguyg87y6fuev$%^&^%$'
+
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="ThomasAppMaker",
     password="P_R5nvjG5DV4Vd6",
@@ -43,15 +44,15 @@ with open(THIS_FOLDER / "page2.txt") as f:
     lines2 = f.readlines()
 lines2 = (" ").join(lines2)
 
-@app.route("/", methods = ["GET","POST"])
+@app.route("/main", methods = ["GET","POST"])
 def home():
 
     if(request.cookies.get('User_Name') is None):
-        return redirect("https://restore-thomasappmaker.pythonanywhere.com/login")
+        return redirect("https://restore-thomasappmaker.pythonanywhere.com")
     else:
         return(lines2)
 
-@app.route("/login", methods = ["GET","POST"])
+@app.route("/", methods = ["GET","POST"])
 def login():
 
     personform = Adder()
@@ -66,7 +67,7 @@ def login():
             personform.personname.data = ""
 
     if(selected_name == 'nothing'):
-        return render_template_string(lines1, add_form=personform)
+        return render_template_string(lines1, personform=personform)
 
     if(request.cookies.get('User_Name') is None):
         response_object = make_response(lines1)
@@ -74,4 +75,4 @@ def login():
         response_object.set_cookie("User_Occupation", value = selected_occ, max_age = 31536000, expires = None, path = '/', domain = None, secure = None, httponly = False)
         return response_object
     else:
-        return redirect("https://restore-thomasappmaker.pythonanywhere.com")
+        return redirect("https://restore-thomasappmaker.pythonanywhere.com/main")
