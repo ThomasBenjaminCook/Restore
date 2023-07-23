@@ -22,6 +22,7 @@ class Adder(FlaskForm):
     submitted = SubmitField('Submit')
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '66578655678HGUUHVGFYTG%^$^&*^&'
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="ThomasAppMaker",
     password="P_R5nvjG5DV4Vd6",
